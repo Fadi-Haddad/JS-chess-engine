@@ -16,3 +16,4 @@ GameBoard.castlePerm= 0;  //decimal number(0-15) represents the permitability of
             // to fine out if white can castle on kings side, we do a bitwise & between castlePerm and WKCA value in CASTLEBIT object
 
 GameBoard.material = new Array(2); // White, Black material of pieces
+GameBoard.posKey = 0; // a unique identifier generated for a specific position on a chessboard, used to quickly compare and retrieve positions from a hash table
