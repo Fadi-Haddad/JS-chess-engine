@@ -17,3 +17,32 @@ GameBoard.castlePerm= 0;  //decimal number(0-15) represents the permitability of
 
 GameBoard.material = new Array(2); // White, Black material of pieces
 GameBoard.posKey = 0; // a unique identifier generated for a specific position on a chessboard, used to quickly compare and retrieve positions from a hash table
+GameBoard.pList = new Array(14*10);
+GameBoard.pceNum = new Array(13);
+
+function GeneratePosKey() {
+
+	var sq = 0;
+	var finalKey = 0;
+	var piece = PIECES.EMPTY;
+
+	for(sq = 0; sq < BRD_SQ_NUM; ++sq) {
+		piece = GameBoard.pieces[sq];
+		if(piece != PIECES.EMPTY && piece != SQUARES.OFFBOARD) {			
+			finalKey ^= PieceKeys[(piece * 120) + sq];
+		}		
+	}
+
+	if(GameBoard.side == COLOURS.WHITE) {
+		finalKey ^= SideKey;
+	}
+	
+	if(GameBoard.enPas != SQUARES.NO_SQ) {		
+		finalKey ^= PieceKeys[GameBoard.enPas];
+	}
+	
+	finalKey ^= CastleKeys[GameBoard.castlePerm];
+	
+	return finalKey;
+
+}
